@@ -9,8 +9,7 @@ const fs = require('fs');
 //json file
 let db = require('./db/db.json');
 
-//define a port to listen for incoming requests.
-//make the port dynamic and not hard coded.
+//define a port to listen for incoming requests in the .env file otherwise use port 3000
 const PORT = process.env.PORT || 3000;
 
 //create an instance of express.
@@ -32,7 +31,7 @@ app.use(express.static(__dirname + '/public'));
 // console.log("dirname " + __dirname)
 
 
-//this is the first html route (root route): http://127.0.0.1:3000. 
+//this is the first html route (root route): http://127.0.0.1:${PORT}. 
 //it uses the GET verb of the app object (express).
 //express provides a method in the response object (res in our case)  
 //of the router called sendFile() that can be used to serve static files. 
@@ -42,7 +41,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
-//this is the second html route: http://127.0.0.1:3000/notes. 
+//this is the second html route: http://127.0.0.1:${PORT}/notes. 
 //it uses the GET verb of the app object (express).
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
@@ -85,4 +84,4 @@ app.listen(PORT, (err) => {
     }
 });
 
-//app.listen(3000)
+
